@@ -1,0 +1,14 @@
+documentationUrl: https://docsurl.com
+connectionSpecification:
+  $schema: http://json-schema.org/draft-07/schema#
+  title: Tcbs Price History Spec
+  type: object
+  required:
+    - days_before
+  properties:
+    sync_all: 
+      type: boolean
+      description: Sync the whole history of stock data
+    days_before:
+      type: number
+      description: If not choose sync before today, sync data since specified days

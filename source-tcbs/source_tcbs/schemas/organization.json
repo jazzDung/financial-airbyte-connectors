@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "properties": {
+    "organCode": {
+      "type": "string"
+    },
+    "ticker": {
+      "type": "string"
+    },
+    "comGroupCode": {
+      "type": "string"
+    },
+    "icbCode": {
+      "type": "string"
+    },
+    "organTypeCode": {
+      "type": "string"
+    },
+    "comTypeCode": {
+      "type": "string"
+    },
+    "organName": {
+      "type": "string"
+    },
+    "organShortName": {
+      "type": "string"
+    }
+  }
+}

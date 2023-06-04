@@ -1,0 +1,114 @@
+{
+  "streams": [
+    {
+      "stream": {
+        "name": "organization",
+        "json_schema": {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "type": "object",
+          "properties": {
+            "organCode": {
+              "type": "string"
+            },
+            "ticker": {
+              "type": "string"
+            },
+            "comGroupCode": {
+              "type": "string"
+            },
+            "icbCode": {
+              "type": "string"
+            },
+            "organTypeCode": {
+              "type": "string"
+            },
+            "comTypeCode": {
+              "type": "string"
+            },
+            "organName": {
+              "type": "string"
+            },
+            "organShortName": {
+              "type": "string"
+            }
+          }
+        },
+        "supported_sync_modes": ["full_refresh"]
+      },
+      "sync_mode": "full_refresh",
+      "destination_sync_mode": "overwrite"
+    },
+
+    {
+      "stream": {
+        "name": "organization_overview",
+        "json_schema": {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "type": "object",
+          "properties": {
+            "exchange": {
+              "type": "string"
+            },    
+            "shortName": {
+              "type": "string"
+            },
+            "industryID": {
+              "type": "number"
+            },
+            "industryIDv2": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "industryEn": {
+              "type": "string"
+            },
+            "establishedYear": {
+              "type": "string"
+            },
+            "noEmployees": {
+              "type": "number"
+            },
+            "noShareholders": {
+              "type": "number"
+            },
+            "foreignPercent": {
+              "type": "number"
+            },
+            "website": {
+              "type": "string"
+            },
+            "stockRating": {
+              "type": "number"
+            },
+            "deltaInWeek": {
+              "type": "number"
+            },
+            "deltaInMonth": {
+              "type": "number"
+            },
+            "deltaInYear": {
+              "type": "number"
+            },
+            "outstandingShare": {
+              "type": "number"
+            },
+            "issueShare": {
+              "type": "number"
+            },
+            "companyType": {
+              "type": "string"
+            },
+            "ticker": {
+              "type": "string"
+            }
+          }
+        },
+        "supported_sync_modes": ["full_refresh"]
+      },
+      "sync_mode": "full_refresh",
+      "destination_sync_mode": "overwrite"
+    }
+  ]
+}
