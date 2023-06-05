@@ -14,21 +14,6 @@ from airbyte_cdk.sources.streams import Stream
 from airbyte_cdk.sources.streams.http import HttpStream, HttpSubStream
 from airbyte_cdk.sources.streams.http.auth import TokenAuthenticator, NoAuth
 
-"""
-TODO: Most comments in this class are instructive and should be deleted after the source is implemented.
-
-This file provides a stubbed example of how to use the Airbyte CDK to develop both a source connector which supports full refresh or and an
-incremental syncs from an HTTP API.
-
-The various TODOs are both implementation hints and steps - fulfilling all the TODOs should be sufficient to implement one basic and one incremental
-stream from a source. This pattern is the same one used by Airbyte internally to implement connectors.
-x
-The approach here is not authoritative, and devs are free to use their own judgement.
-
-There are additional required TODOs in the files within the integration_tests folder and the spec.yaml file.
-"""
-
-
 class Organization(HttpStream):
     url_base = None
 
@@ -45,7 +30,6 @@ class Organization(HttpStream):
         self.days_before = config['days_before']
         
     def next_page_token(self, response: requests.Response) -> Optional[Mapping[str, Any]]:
-        # The API does not offer pagination, so we return None to indicate there are no more pages in the response
         return None
 
     def path(

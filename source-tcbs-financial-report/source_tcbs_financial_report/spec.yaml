@@ -4,9 +4,20 @@ connectionSpecification:
   title: Tcbs Financial Report Spec
   type: object
   required:
-    - TODO
+    - report_type
+    - frequency
   properties:
-    # 'TODO: This schema defines the configuration required for the source. This usually involves metadata such as database and/or authentication information.':
-    TODO:
+    fast_mode:
+      type: boolean
+      description: Enable to just ingest records from 10 organization
+    report_type:
       type: string
-      description: describe me
+      examples: ["BalanceSheet", "IncomeStatement", "CashFlow"]
+      values: 
+        - "BalanceSheet"
+        - "IncomeStatement"
+        - "CashFlow"
+    frequency:
+      type: string
+      examples: ["Yearly", "Quarterly", "Both"]
+
