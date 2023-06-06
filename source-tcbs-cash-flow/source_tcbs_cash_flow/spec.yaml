@@ -4,19 +4,11 @@ connectionSpecification:
   title: Tcbs Financial Report Spec
   type: object
   required:
-    - report_type
     - frequency
   properties:
     fast_mode:
       type: boolean
       description: Enable to just ingest records from 10 organization
-    report_type:
-      type: string
-      examples: ["BalanceSheet", "IncomeStatement", "CashFlow"]
-      values: 
-        - "BalanceSheet"
-        - "IncomeStatement"
-        - "CashFlow"
     frequency:
       type: string
       examples: ["Yearly", "Quarterly", "Both"]

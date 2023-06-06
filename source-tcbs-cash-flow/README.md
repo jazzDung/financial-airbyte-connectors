@@ -1,4 +1,4 @@
-# Tcbs Financial Report Source
+# Tcbs Cash Flow Source
 
 This is the repository for the Tcbs Financial Report source connector, written in Python.
 For information about how to use this connector within Airbyte, see [the documentation](https://docs.airbyte.com/integrations/sources/tcbs-financial-report).

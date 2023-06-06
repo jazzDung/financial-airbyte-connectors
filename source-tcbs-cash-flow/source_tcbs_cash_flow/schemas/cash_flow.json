@@ -1,0 +1,111 @@
+{
+    "type": "object",
+    "description": "",
+    "properties": {
+        "ticker": {
+            "type": "string"
+        },
+        "shortAsset": {
+            "type": "string"
+        },
+        "cash": {
+            "type": "integer"
+        },
+        "shortInvest": {
+            "type": "string"
+        },
+        "shortReceivable": {
+            "type": "string"
+        },
+        "inventory": {
+            "type": "string"
+        },
+        "longAsset": {
+            "type": "string"
+        },
+        "fixedAsset": {
+            "type": "integer"
+        },
+        "asset": {
+            "type": "integer"
+        },
+        "debt": {
+            "type": "integer"
+        },
+        "shortDebt": {
+            "type": "string"
+        },
+        "longDebt": {
+            "type": "string"
+        },
+        "equity": {
+            "type": "integer"
+        },
+        "capital": {
+            "type": "integer"
+        },
+        "centralBankDeposit": {
+            "type": "integer"
+        },
+        "otherBankDeposit": {
+            "type": "integer"
+        },
+        "otherBankLoan": {
+            "type": "number"
+        },
+        "stockInvest": {
+            "type": "integer"
+        },
+        "customerLoan": {
+            "type": "integer"
+        },
+        "badLoan": {
+            "type": "number"
+        },
+        "provision": {
+            "type": "integer"
+        },
+        "netCustomerLoan": {
+            "type": "integer"
+        },
+        "otherAsset": {
+            "type": "integer"
+        },
+        "otherBankCredit": {
+            "type": "integer"
+        },
+        "oweOtherBank": {
+            "type": "number"
+        },
+        "oweCentralBank": {
+            "type": "integer"
+        },
+        "valuablePaper": {
+            "type": "integer"
+        },
+        "payableInterest": {
+            "type": "number"
+        },
+        "receivableInterest": {
+            "type": "number"
+        },
+        "deposit": {
+            "type": "integer"
+        },
+        "otherDebt": {
+            "type": "integer"
+        },
+        "fund": {
+            "type": "integer"
+        },
+        "unDistributedIncome": {
+            "type": "integer"
+        },
+        "minorShareHolderProfit": {
+            "type": "number"
+        },
+        "payable": {
+            "type": "integer"
+        }
+    }
+}

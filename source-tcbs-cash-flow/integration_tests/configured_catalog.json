@@ -1,0 +1,36 @@
+{
+  "streams": [
+    {
+      "stream": {
+        "name": "cash_flow",
+        "description": "Stock data price history",
+        "json_schema": {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "ticker": {
+            "type": "string"
+          },
+          "investCost": {
+            "type": "integer"
+          },
+          "fromInvest": {
+            "type": "integer"
+          },
+          "fromFinancial": {
+            "type": "integer"
+          },
+          "fromSale": {
+            "type": "integer"
+          },
+          "freeCashFlow": {
+            "type": "number"
+          }
+        },
+        "supported_sync_modes": [
+          "full_refresh"
+        ]
+      },
+      "sync_mode": "full_refresh",
+      "destination_sync_mode": "append"
+    }
+  ]
+}

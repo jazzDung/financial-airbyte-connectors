@@ -5,5 +5,5 @@ plugins {
 }
 
 airbytePython {
-    moduleDirectory 'source_tcbs_financial_report'
+    moduleDirectory 'source_tcbs_cash_flow'
 }

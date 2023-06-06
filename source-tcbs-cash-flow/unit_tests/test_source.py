@@ -4,7 +4,7 @@
 
 from unittest.mock import MagicMock
 
-from source_tcbs_financial_report.source import SourceTcbsFinancialReport
+from source_tcbs_cash_flow.source import SourceTcbsFinancialReport
 
 
 def test_check_connection(mocker):

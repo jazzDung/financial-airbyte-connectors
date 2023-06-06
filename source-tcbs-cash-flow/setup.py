@@ -16,10 +16,10 @@ TEST_REQUIREMENTS = [
 ]
 
 setup(
-    name="source_tcbs_financial_report",
-    description="Source implementation for Tcbs Financial Report.",
-    author="Airbyte",
-    author_email="contact@airbyte.io",
+    name="source_tcbs_cash_flow",
+    description="Organization quarterly/yearly cash flow report, aquired from TCBS",
+    author="jazzdung",
+    author_email="dungpham.020901@gmail.com",
     packages=find_packages(),
     install_requires=MAIN_REQUIREMENTS,
     package_data={"": ["*.json", "*.yaml", "schemas/*.json", "schemas/shared/*.json"]},

@@ -5,7 +5,7 @@
 
 from airbyte_cdk.models import SyncMode
 from pytest import fixture
-from source_tcbs_financial_report.source import IncrementalTcbsFinancialReportStream
+from source_tcbs_cash_flow.source import IncrementalTcbsFinancialReportStream
 
 
 @fixture

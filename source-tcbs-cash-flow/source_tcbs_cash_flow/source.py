@@ -34,7 +34,7 @@ HEADERS = {
         }
 
 # Basic full refresh stream
-class TcbsFinancialReportStream(HttpStream, ABC):
+class Organization(HttpStream, ABC):
     url_base = None
     primary_key = None
 
@@ -45,7 +45,6 @@ class TcbsFinancialReportStream(HttpStream, ABC):
         except:
             self.fast_mode = False
         
-        self.report_type = config['report_type']
         self.frequency = config['frequency']
 
     def path(self, 
@@ -85,11 +84,11 @@ class TcbsFinancialReportStream(HttpStream, ABC):
         return HEADERS
 
 
-class TcbsFinancialReportSubStream(HttpSubStream, TcbsFinancialReportStream, ABC):
+class OrganizationSubStream(HttpSubStream, Organization, ABC):
 
     raise_on_http_errors = False
  
-    def __init__(self, config: Mapping[str, Any], parent: TcbsFinancialReportStream, **kwargs):
+    def __init__(self, config: Mapping[str, Any], parent: Organization, **kwargs):
         super().__init__(config=config, parent=parent, **kwargs)
         self.frequency = config['frequency']
 
@@ -97,23 +96,24 @@ class TcbsFinancialReportSubStream(HttpSubStream, TcbsFinancialReportStream, ABC
     def parse_response(self, response: requests.Response, **kwargs) -> Iterable[Mapping]:
         yield response.json()
 
-class CashFlow(TcbsFinancialReportSubStream):
+class CashFlow(OrganizationSubStream):
     
     def path(self, stream_state: Mapping[str, Any] = None, stream_slice: Mapping[str, Any] = None, next_page_token: Mapping[str, Any] = None) -> str:
         return f'https://apipubaws.tcbs.com.vn/tcanalysis/v1/finance/{stream_slice["ticker"]}/cashflow'
     
     def stream_slices(self, **kwargs) -> Iterable[Optional[Mapping[str, any]]]:
-
         for stream_slices in self.parent.stream_slices(sync_mode=SyncMode.full_refresh):
             for record in self.parent.read_records(sync_mode=SyncMode.full_refresh, stream_slice=stream_slices):
                 yield {"ticker": record["ticker"]}
     
-    def parse_response(self, response: requests.Response, **kwargs) -> Iterable[Mapping]:
+    def parse_response(self, response: requests.Response, stream_slice: Mapping[str, Any] = None, **kwargs) -> Iterable[Mapping]:
 
-        url = f'https://apipubaws.tcbs.com.vn/tcanalysis/v1/finance/TCB/cashflow'
-        x = 1 if self.frequency == 'Yearly' else 0
+        url = f'https://apipubaws.tcbs.com.vn/tcanalysis/v1/finance/{stream_slice["ticker"]}/cashflow'
 
-        response = requests.get(url, params={'yearly': x, 'isAll':'true'}).json()
+        yearly_data = requests.get(url, params={'yearly': 1, 'isAll':'true'}).json()
+        quarterly_data = requests.get(url, params={'yearly': 0, 'isAll':'true'}).json()
+
+        response = yearly_data + quarterly_data
         for element in response:
             yield element
 
@@ -125,6 +125,5 @@ class SourceTcbsFinancialReport(AbstractSource):
     def streams(self, config: Mapping[str, Any]) -> List[Stream]:
         auth = NoAuth() 
         return [
-            CashFlow(parent =TcbsFinancialReportStream(config=config, authenticator=auth), config=config, authenticator=auth)
+            CashFlow(parent =Organization(config=config, authenticator=auth), config=config, authenticator=auth)
         ]
-
