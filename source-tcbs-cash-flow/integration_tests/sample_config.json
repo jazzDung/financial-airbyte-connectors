@@ -1,3 +1,5 @@
 {
-  "fix-me": "TODO"
+  "fast_mode": true,
+  "frequency": "Both",
+  "all_data": false
 }

@@ -4,17 +4,17 @@
 
 from unittest.mock import MagicMock
 
-from source_tcbs_cash_flow.source import SourceTcbsFinancialReport
+from source_tcbs_cash_flow.source import SourceTcbsCashFlow
 
 
 def test_check_connection(mocker):
-    source = SourceTcbsFinancialReport()
+    source = SourceTcbsCashFlow()
     logger_mock, config_mock = MagicMock(), MagicMock()
     assert source.check_connection(logger_mock, config_mock) == (True, None)
 
 
 def test_streams(mocker):
-    source = SourceTcbsFinancialReport()
+    source = SourceTcbsCashFlow()
     config_mock = MagicMock()
     streams = source.streams(config_mock)
     # TODO: replace this with your streams number

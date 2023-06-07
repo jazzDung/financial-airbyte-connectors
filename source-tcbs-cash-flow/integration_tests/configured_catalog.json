@@ -3,7 +3,7 @@
     {
       "stream": {
         "name": "cash_flow",
-        "description": "Stock data price history",
+        "description": "Organization cash flow report",
         "json_schema": {
           "$schema": "http://json-schema.org/draft-04/schema#",
           "ticker": {

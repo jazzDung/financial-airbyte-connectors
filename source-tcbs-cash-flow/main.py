@@ -6,8 +6,8 @@
 import sys
 
 from airbyte_cdk.entrypoint import launch
-from source_tcbs_cash_flow import SourceTcbsFinancialReport
+from source_tcbs_cash_flow import SourceTcbsCashFlow
 
 if __name__ == "__main__":
-    source = SourceTcbsFinancialReport()
+    source = SourceTcbsCashFlow()
     launch(source, sys.argv[1:])

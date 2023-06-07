@@ -1,3 +1,5 @@
 {
-  "todo-wrong-field": "this should be an incomplete config file, used in standard tests"
+  "fast_mode": true,
+  "frequency": "LMAO",
+  "all_data": false
 }

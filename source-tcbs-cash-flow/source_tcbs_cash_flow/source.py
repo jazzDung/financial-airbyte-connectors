@@ -2,7 +2,6 @@
 # Copyright (c) 2023 Airbyte, Inc., all rights reserved.
 #
 
-
 from abc import ABC
 from typing import Any, Iterable, List, Mapping, MutableMapping, Optional, Tuple
 from airbyte_cdk.models import SyncMode
@@ -36,15 +35,12 @@ HEADERS = {
 # Basic full refresh stream
 class Organization(HttpStream, ABC):
     url_base = None
-    primary_key = None
+    primary_key = ["ticker", "quarter", "year"]
 
     def __init__(self, config: Mapping[str, Any], **kwargs):
         super().__init__()
-        try:
-            self.fast_mode = config['fast_mode']
-        except:
-            self.fast_mode = False
-        
+        self.fast_mode = config['fast_mode']
+        self.all_data = config['all_data']
         self.frequency = config['frequency']
 
     def path(self, 
@@ -91,15 +87,17 @@ class OrganizationSubStream(HttpSubStream, Organization, ABC):
     def __init__(self, config: Mapping[str, Any], parent: Organization, **kwargs):
         super().__init__(config=config, parent=parent, **kwargs)
         self.frequency = config['frequency']
-
+        self.all_data = config['all_data']
  
     def parse_response(self, response: requests.Response, **kwargs) -> Iterable[Mapping]:
         yield response.json()
 
 class CashFlow(OrganizationSubStream):
+
+    primary_key = ["ticker", "quarter", "year"]
     
     def path(self, stream_state: Mapping[str, Any] = None, stream_slice: Mapping[str, Any] = None, next_page_token: Mapping[str, Any] = None) -> str:
-        return f'https://apipubaws.tcbs.com.vn/tcanalysis/v1/finance/{stream_slice["ticker"]}/cashflow'
+        return f'https://apipubaws.tcbs.com.vn/tcanalysis/v1/finance/{stream_slice["ticker"]}/cashflow?yearly=0&isAll={self.all_data}'
     
     def stream_slices(self, **kwargs) -> Iterable[Optional[Mapping[str, any]]]:
         for stream_slices in self.parent.stream_slices(sync_mode=SyncMode.full_refresh):
@@ -110,20 +108,42 @@ class CashFlow(OrganizationSubStream):
 
         url = f'https://apipubaws.tcbs.com.vn/tcanalysis/v1/finance/{stream_slice["ticker"]}/cashflow'
 
-        yearly_data = requests.get(url, params={'yearly': 1, 'isAll':'true'}).json()
-        quarterly_data = requests.get(url, params={'yearly': 0, 'isAll':'true'}).json()
+        if self.frequency == "Yearly":
+            response = requests.get(url, params={'yearly': 1, 'isAll': self.all_data}).json()
 
-        response = yearly_data + quarterly_data
+        if self.frequency == "Quarterly" or self.frequency == "Quarterly":
+            response = requests.get(url, params={'yearly': 0, 'isAll': self.all_data}).json()
+
+        if self.frequency == "Both":
+            yearly_data = requests.get(url, params={'yearly': 0, 'isAll': self.all_data}).json() 
+            quarterly_data = requests.get(url, params={'yearly': 0, 'isAll': self.all_data}).json()
+            response = yearly_data + quarterly_data
+
         for element in response:
             yield element
 
 # Source
-class SourceTcbsFinancialReport(AbstractSource):
+class SourceTcbsCashFlow(AbstractSource):
     def check_connection(self, logger, config) -> Tuple[bool, any]:
-        return True, None
+
+        if config["frequency"] not in ["Yearly", "Quarterly", "Both"]:
+            return False, f'Frequency must be one of these values: Yearly, Quarterly, Both. Got {config["frequency"]} instead'
+        
+        else:
+            try:
+                url = f'https://apipubaws.tcbs.com.vn/tcanalysis/v1/finance/TCB/cashflow'
+                requests.get(url, params={'yearly': 1, 'isAll': config["all_data"]})
+                return True, None
+        
+            except requests.exceptions.RequestException as e:
+                return False, e
 
     def streams(self, config: Mapping[str, Any]) -> List[Stream]:
         auth = NoAuth() 
         return [
-            CashFlow(parent =Organization(config=config, authenticator=auth), config=config, authenticator=auth)
+            CashFlow(
+                parent=Organization(config=config, authenticator=auth), 
+                config=config, 
+                authenticator=auth
+            )
         ]

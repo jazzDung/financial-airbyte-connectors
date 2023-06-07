@@ -29,10 +29,10 @@ RUN apk --no-cache add bash
 
 # copy payload code only
 COPY main.py ./
-COPY source_tcbs_cash_flow ./source_tcbs_financial_report
+COPY source_tcbs_cash_flow ./source_tcbs_cash_flow
 
 ENV AIRBYTE_ENTRYPOINT "python /airbyte/integration_code/main.py"
 ENTRYPOINT ["python", "/airbyte/integration_code/main.py"]
 
 LABEL io.airbyte.version=0.1.0
-LABEL io.airbyte.name=airbyte/source_tcbs_cash_flow
+LABEL io.airbyte.name=airbyte/source-tcbs-cash-flow
