@@ -1,0 +1,97 @@
+{
+    "type": "LOG",
+    "log": {
+        "level": "INFO",
+        "message": "Starting syncing SourceTcbsIncomeStatement"
+    }
+}
+{
+    "type": "LOG",
+    "log": {
+        "level": "INFO",
+        "message": "Marking stream income_statement as STARTED"
+    }
+}
+{
+    "type": "TRACE",
+    "trace": {
+        "type": "STREAM_STATUS",
+        "emitted_at": 1686220623096.499,
+        "stream_status": {
+            "stream_descriptor": {
+                "name": "income_statement",
+                "namespace": null
+            },
+            "status": "STARTED"
+        }
+    }
+}
+{
+    "type": "LOG",
+    "log": {
+        "level": "INFO",
+        "message": "Syncing stream: income_statement "
+    }
+}
+{
+    "type": "LOG",
+    "log": {
+        "level": "ERROR",
+        "message": "Encountered an exception while reading stream income_statement\nTraceback (most recent call last):\n  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py\", line 120, in read\n    yield from self._read_stream(\n  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py\", line 194, in _read_stream\n    for record in record_iterator:\n  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py\", line 325, in _read_full_refresh\n    message = self._get_message(record_data_or_message, stream_instance)\n  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py\", line 359, in _get_message\n    return stream_data_to_airbyte_message(stream.name, record_data_or_message, stream.transformer, stream.get_json_schema())\n  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/utils/record_helper.py\", line 38, in stream_data_to_airbyte_message\n    raise ValueError(f\"Unexpected type for data_or_message: {type(data_or_message)}: {data_or_message}\")\nValueError: Unexpected type for data_or_message: <class 'str'>: timestamp"
+    }
+}
+{
+    "type": "LOG",
+    "log": {
+        "level": "INFO",
+        "message": "Marking stream income_statement as STOPPED"
+    }
+}
+{
+    "type": "TRACE",
+    "trace": {
+        "type": "STREAM_STATUS",
+        "emitted_at": 1686220624126.618,
+        "stream_status": {
+            "stream_descriptor": {
+                "name": "income_statement",
+                "namespace": null
+            },
+            "status": "INCOMPLETE"
+        }
+    }
+}
+{
+    "type": "LOG",
+    "log": {
+        "level": "INFO",
+        "message": "Finished syncing income_statement"
+    }
+}
+{
+    "type": "LOG",
+    "log": {
+        "level": "INFO",
+        "message": "SourceTcbsIncomeStatement runtimes:\nSyncing stream income_statement 0:00:01.030519"
+    }
+}
+{
+    "type": "LOG",
+    "log": {
+        "level": "FATAL",
+        "message": "Unexpected type for data_or_message: <class 'str'>: timestamp\nTraceback (most recent call last):\n  File \"/home/jazzdung/projects/airbyte-connectors/source-tcbs-income-statement/main.py\", line 13, in <module>\n    launch(source, sys.argv[1:])\n  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/entrypoint.py\", line 156, in launch\n    for message in source_entrypoint.run(parsed_args):\n  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/entrypoint.py\", line 98, in run\n    yield from map(AirbyteEntrypoint.airbyte_message_to_string, self.read(source_spec, config, config_catalog, state))\n  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/entrypoint.py\", line 132, in read\n    yield from self.source.read(self.logger, config, catalog, state)\n  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py\", line 139, in read\n    raise e\n  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py\", line 120, in read\n    yield from self._read_stream(\n  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py\", line 194, in _read_stream\n    for record in record_iterator:\n  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py\", line 325, in _read_full_refresh\n    message = self._get_message(record_data_or_message, stream_instance)\n  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py\", line 359, in _get_message\n    return stream_data_to_airbyte_message(stream.name, record_data_or_message, stream.transformer, stream.get_json_schema())\n  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/utils/record_helper.py\", line 38, in stream_data_to_airbyte_message\n    raise ValueError(f\"Unexpected type for data_or_message: {type(data_or_message)}: {data_or_message}\")\nValueError: Unexpected type for data_or_message: <class 'str'>: timestamp"
+    }
+}
+{
+    "type": "TRACE",
+    "trace": {
+        "type": "ERROR",
+        "emitted_at": 1686220624127.583,
+        "error": {
+            "message": "Something went wrong in the connector. See the logs for more details.",
+            "internal_message": "Unexpected type for data_or_message: <class 'str'>: timestamp",
+            "stack_trace": "Traceback (most recent call last):\n  File \"/home/jazzdung/projects/airbyte-connectors/source-tcbs-income-statement/main.py\", line 13, in <module>\n    launch(source, sys.argv[1:])\n  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/entrypoint.py\", line 156, in launch\n    for message in source_entrypoint.run(parsed_args):\n  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/entrypoint.py\", line 98, in run\n    yield from map(AirbyteEntrypoint.airbyte_message_to_string, self.read(source_spec, config, config_catalog, state))\n  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/entrypoint.py\", line 132, in read\n    yield from self.source.read(self.logger, config, catalog, state)\n  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py\", line 139, in read\n    raise e\n  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py\", line 120, in read\n    yield from self._read_stream(\n  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py\", line 194, in _read_stream\n    for record in record_iterator:\n  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py\", line 325, in _read_full_refresh\n    message = self._get_message(record_data_or_message, stream_instance)\n  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py\", line 359, in _get_message\n    return stream_data_to_airbyte_message(stream.name, record_data_or_message, stream.transformer, stream.get_json_schema())\n  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/utils/record_helper.py\", line 38, in stream_data_to_airbyte_message\n    raise ValueError(f\"Unexpected type for data_or_message: {type(data_or_message)}: {data_or_message}\")\nValueError: Unexpected type for data_or_message: <class 'str'>: timestamp\n",
+            "failure_type": "system_error"
+        }
+    }
+}

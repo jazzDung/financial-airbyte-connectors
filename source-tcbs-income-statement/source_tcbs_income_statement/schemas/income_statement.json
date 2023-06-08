@@ -1,0 +1,72 @@
+{
+    "type": "object",
+    "description": "Organization income statement report",
+    "properties": {
+        "ticker": {
+            "type": "string"
+        },
+        "revenue": {
+            "type": "integer"
+        },
+        "yearRevenueGrowth": {
+            "type": "number"
+        },
+        "quarterRevenueGrowth": {
+            "type": "string"
+        },
+        "costOfGoodSold": {
+            "type": "string"
+        },
+        "grossProfit": {
+            "type": "string"
+        },
+        "operationExpense": {
+            "type": "integer"
+        },
+        "operationProfit": {
+            "type": "integer"
+        },
+        "yearOperationProfitGrowth": {
+            "type": "number"
+        },
+        "quarterOperationProfitGrowth": {
+            "type": "string"
+        },
+        "interestExpense": {
+            "type": "string"
+        },
+        "preTaxProfit": {
+            "type": "integer"
+        },
+        "postTaxProfit": {
+            "type": "integer"
+        },
+        "shareHolderIncome": {
+            "type": "integer"
+        },
+        "yearShareHolderIncomeGrowth": {
+            "type": "number"
+        },
+        "quarterShareHolderIncomeGrowth": {
+            "type": "string"
+        },
+        "investProfit": {
+            "type": "integer"
+        },
+        "serviceProfit": {
+            "type": "integer"
+        },
+        "otherProfit": {
+            "type": "integer"
+        },
+        "provisionExpense": {
+            "type": "integer"
+        },
+        "operationIncome": {
+            "type": "integer"
+        },
+        "ebitda": {
+            "type": "string"
+        }
+    }
+}

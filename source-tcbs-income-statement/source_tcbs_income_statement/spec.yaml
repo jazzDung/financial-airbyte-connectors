@@ -4,9 +4,16 @@ connectionSpecification:
   title: Tcbs Income Statement Spec
   type: object
   required:
-    - TODO
+    - frequency
   properties:
-    # 'TODO: This schema defines the configuration required for the source. This usually involves metadata such as database and/or authentication information.':
-    TODO:
+    fast_mode:
+      description: Enable to just ingest records from 10 organization
+      type: boolean
+      default: false
+    all_data:
+      description: If disabled, will only collect data for 5 years from now
+      type: boolean
+      default: false
+    frequency:
       type: string
-      description: describe me
+      examples: ["Yearly", "Quarterly", "Both"]
