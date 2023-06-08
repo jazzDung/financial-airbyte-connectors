@@ -2,33 +2,45 @@
 # Copyright (c) 2023 Airbyte, Inc., all rights reserved.
 #
 
-
 from abc import ABC
+import datetime
 from typing import Any, Iterable, List, Mapping, MutableMapping, Optional, Tuple
-from datetime import date, timedelta
+from datetime import date, timedelta, strptime
 
 import requests, time
 from airbyte_cdk.models import SyncMode
 from airbyte_cdk.sources import AbstractSource
-from airbyte_cdk.sources.streams import Stream
+from airbyte_cdk.sources.streams import Stream, IncrementalMixin
 from airbyte_cdk.sources.streams.http import HttpStream, HttpSubStream
 from airbyte_cdk.sources.streams.http.auth import TokenAuthenticator, NoAuth
 
-class Organization(HttpStream):
+class Organization(HttpStream, IncrementalMixin):
     url_base = None
+    cursor_field = 'tradingDate'
+    primary_key = 'tradingDate'
 
-    # Set this as a noop.
-    primary_key = 'ticker'
+    def use_cache(self) -> bool:
+        return True
 
     def __init__(self, config: Mapping[str, Any], **kwargs):
         super().__init__()
 
-        try:
-            self.sync_all = config['sync_all']
-        except:
-            self.sync_all = False
+        self.sync_all = config['sync_all']
         self.days_before = config['days_before']
+        self._cursor_value = None   
         
+
+    @property
+    def state(self) -> Mapping[str, Any]:
+        if self._cursor_value:
+            return {self.cursor_field: self._cursor_value.strftime('%YYYY-%MM-%DD')}
+        else:
+            return {self.cursor_field: self.start_date.strftime('%YYYY-%MM-%DD')}
+    
+    @state.setter
+    def state(self, value: Mapping[str, Any]):
+       self._cursor_value = strptime(value[self.cursor_field], '%Y-%m-%d')
+
     def next_page_token(self, response: requests.Response) -> Optional[Mapping[str, Any]]:
         return None
 
@@ -80,17 +92,12 @@ class Organization(HttpStream):
         return response[:10]
 
 class OrganizationSubStream(HttpSubStream, Organization, ABC):
-
     raise_on_http_errors = False
  
     def __init__(self, config: Mapping[str, Any], parent: Organization, **kwargs):
         super().__init__(config=config, parent=parent, **kwargs)
         
-        try:
-            self.sync_all = config['sync_all']
-        except:
-            self.sync_all = False
-
+        self.sync_all = config['sync_all']
         self.days_before = config['days_before']
 
         # Specify some of the timestamp here
@@ -103,9 +110,8 @@ class OrganizationSubStream(HttpSubStream, Organization, ABC):
     def parse_response(self, response: requests.Response, **kwargs) -> Iterable[Mapping]:
         yield response.json()
 
+
 class PriceHistory(OrganizationSubStream):
-    # primary_key = None
-    primary_key = ['ticker','tradingDate']
  
     def path(self, *, stream_state: Mapping[str, Any] = None, stream_slice: Mapping[str, Any] = None,
              next_page_token: Mapping[str, Any] = None) -> str:
@@ -121,6 +127,21 @@ class PriceHistory(OrganizationSubStream):
             for record in self.parent.read_records(sync_mode=SyncMode.full_refresh, stream_slice=stream_slices):
                 # for data in record["items"]:
                 yield {"ticker": record["ticker"]}
+
+    def _chunk_date_range(self, start_date: datetime) -> List[Mapping[str, Any]]:
+        """
+        Returns a list of each day between the start date and now.
+        The return value is a list of dicts {'date': date_string}.
+        """
+        dates = []
+        while start_date < datetime.now():
+            dates.append({self.cursor_field: start_date.strftime('%Y-%m-%d')})
+            start_date += timedelta(days=1)
+        return dates
+
+    def stream_slices(self, sync_mode, cursor_field: List[str] = None, stream_state: Mapping[str, Any] = None) -> Iterable[Optional[Mapping[str, Any]]]:
+        start_date = datetime.strptime(stream_state[self.cursor_field], '%Y-%m-%d') if stream_state and self.cursor_field in stream_state else self.start_date
+        return self._chunk_date_range(start_date)
  
     def parse_response(self, response: requests.Response, **kwargs) -> Iterable[Mapping]:
 
@@ -131,6 +152,12 @@ class PriceHistory(OrganizationSubStream):
             element['ticker'] = ticker
             yield element
 
+    def read_records(self, *args, **kwargs) -> Iterable[Mapping[str, Any]]:
+        for record in super().read_records(*args, **kwargs):
+            if self._cursor_value:
+                latest_record_date = strptime(record[self.cursor_field], '%Y-%m-%d')
+                self._cursor_value = max(self._cursor_value, latest_record_date)
+            yield record
 
 # Source
 class SourceTcbsPriceHistory(AbstractSource):

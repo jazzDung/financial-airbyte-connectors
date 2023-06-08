@@ -8,7 +8,11 @@ connectionSpecification:
   properties:
     sync_all: 
       type: boolean
-      description: Sync the whole history of stock data
+      description: Sync all data not already in database
+      pattern: ^[0-9]{4}-^[0-9]{2}-^[0-9]{2}$
+      examples: YYYY-MM-DD
+      default: false
     days_before:
       type: number
       description: If not choose sync before today, sync data since specified days
+      examples: [1,2,5,100]
