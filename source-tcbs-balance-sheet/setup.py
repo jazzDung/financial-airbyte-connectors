@@ -17,9 +17,9 @@ TEST_REQUIREMENTS = [
 
 setup(
     name="source_tcbs_balance_sheet",
-    description="Source implementation for Tcbs Balance Sheet.",
-    author="Airbyte",
-    author_email="contact@airbyte.io",
+    description="Organization quarterly/yearly balance sheet report, aquired from TCBS",
+    author="jazzdung",
+    author_email="dungpham.020901@gmail.com",
     packages=find_packages(),
     install_requires=MAIN_REQUIREMENTS,
     package_data={"": ["*.json", "*.yaml", "schemas/*.json", "schemas/shared/*.json"]},
