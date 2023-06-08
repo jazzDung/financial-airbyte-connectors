@@ -1,0 +1,247 @@
+{
+    "type": "LOG",
+    "log": {
+        "level": "FATAL",
+        "message": "None is not of type 'array'
+
+Failed validating 'type' in metaschema['properties']['required']:
+    {'default': [],
+     'items': {'type': 'string'},
+     'type': 'array',
+     'uniqueItems': True}
+
+On schema['required']:
+    None
+Traceback (most recent call last):
+  File "/home/jazzdung/projects/airbyte-connectors/source-tcbs-general-rating/main.py", line 13, in <module>
+    launch(source, sys.argv[1:])
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/entrypoint.py", line 156, in launch
+    for message in source_entrypoint.run(parsed_args):
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/entrypoint.py", line 98, in run
+    yield from map(AirbyteEntrypoint.airbyte_message_to_string, self.read(source_spec, config, config_catalog, state))
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/entrypoint.py", line 130, in read
+    self.validate_connection(source_spec, config)
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/entrypoint.py", line 139, in validate_connection
+    check_config_against_spec_or_exit(connector_config, source_spec)
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/utils/schema_helpers.py", line 159, in check_config_against_spec_or_exit
+    validate(instance=config, schema=spec_schema)
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/jsonschema/validators.py", line 930, in validate
+    cls.check_schema(schema)
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/jsonschema/validators.py", line 294, in check_schema
+    raise exceptions.SchemaError.create_from(error)
+jsonschema.exceptions.SchemaError: None is not of type 'array'
+
+Failed validating 'type' in metaschema['properties']['required']:
+    {'default': [],
+     'items': {'type': 'string'},
+     'type': 'array',
+     'uniqueItems': True}
+
+On schema['required']:
+    None"
+    }
+}
+{
+    "type": "TRACE",
+    "trace": {
+        "type": "ERROR",
+        "emitted_at": 1686222169084.657,
+        "error": {
+            "message": "Something went wrong in the connector. See the logs for more details.",
+            "internal_message": "None is not of type 'array'
+
+Failed validating 'type' in metaschema['properties']['required']:
+    {'default': [],
+     'items': {'type': 'string'},
+     'type': 'array',
+     'uniqueItems': True}
+
+On schema['required']:
+    None",
+            "stack_trace": "Traceback (most recent call last):
+  File "/home/jazzdung/projects/airbyte-connectors/source-tcbs-general-rating/main.py", line 13, in <module>
+    launch(source, sys.argv[1:])
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/entrypoint.py", line 156, in launch
+    for message in source_entrypoint.run(parsed_args):
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/entrypoint.py", line 98, in run
+    yield from map(AirbyteEntrypoint.airbyte_message_to_string, self.read(source_spec, config, config_catalog, state))
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/entrypoint.py", line 130, in read
+    self.validate_connection(source_spec, config)
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/entrypoint.py", line 139, in validate_connection
+    check_config_against_spec_or_exit(connector_config, source_spec)
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/utils/schema_helpers.py", line 159, in check_config_against_spec_or_exit
+    validate(instance=config, schema=spec_schema)
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/jsonschema/validators.py", line 930, in validate
+    cls.check_schema(schema)
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/jsonschema/validators.py", line 294, in check_schema
+    raise exceptions.SchemaError.create_from(error)
+jsonschema.exceptions.SchemaError: None is not of type 'array'
+
+Failed validating 'type' in metaschema['properties']['required']:
+    {'default': [],
+     'items': {'type': 'string'},
+     'type': 'array',
+     'uniqueItems': True}
+
+On schema['required']:
+    None
+",
+            "failure_type": "system_error"
+        }
+    }
+}
+
+{
+    "type": "LOG",
+    "log": {
+        "level": "INFO",
+        "message": "Starting syncing SourceTcbsGeneralRating"
+    }
+}
+{
+    "type": "LOG",
+    "log": {
+        "level": "INFO",
+        "message": "Marking stream general_rating as STARTED"
+    }
+}
+{
+    "type": "TRACE",
+    "trace": {
+        "type": "STREAM_STATUS",
+        "emitted_at": 1686222258290.5469,
+        "stream_status": {
+            "stream_descriptor": {
+                "name": "general_rating",
+                "namespace": null
+            },
+            "status": "STARTED"
+        }
+    }
+}
+{
+    "type": "LOG",
+    "log": {
+        "level": "INFO",
+        "message": "Syncing stream: general_rating "
+    }
+}
+{
+    "type": "LOG",
+    "log": {
+        "level": "ERROR",
+        "message": "Encountered an exception while reading stream general_rating
+Traceback (most recent call last):
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py", line 120, in read
+    yield from self._read_stream(
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py", line 194, in _read_stream
+    for record in record_iterator:
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py", line 325, in _read_full_refresh
+    message = self._get_message(record_data_or_message, stream_instance)
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py", line 359, in _get_message
+    return stream_data_to_airbyte_message(stream.name, record_data_or_message, stream.transformer, stream.get_json_schema())
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/utils/record_helper.py", line 38, in stream_data_to_airbyte_message
+    raise ValueError(f"Unexpected type for data_or_message: {type(data_or_message)}: {data_or_message}")
+ValueError: Unexpected type for data_or_message: <class 'str'>: stockRating"
+    }
+}
+{
+    "type": "LOG",
+    "log": {
+        "level": "INFO",
+        "message": "Marking stream general_rating as STOPPED"
+    }
+}
+{
+    "type": "TRACE",
+    "trace": {
+        "type": "STREAM_STATUS",
+        "emitted_at": 1686222259393.276,
+        "stream_status": {
+            "stream_descriptor": {
+                "name": "general_rating",
+                "namespace": null
+            },
+            "status": "INCOMPLETE"
+        }
+    }
+}
+{
+    "type": "LOG",
+    "log": {
+        "level": "INFO",
+        "message": "Finished syncing general_rating"
+    }
+}
+{
+    "type": "LOG",
+    "log": {
+        "level": "INFO",
+        "message": "SourceTcbsGeneralRating runtimes:
+Syncing stream general_rating 0:00:01.103262"
+    }
+}
+{
+    "type": "LOG",
+    "log": {
+        "level": "FATAL",
+        "message": "Unexpected type for data_or_message: <class 'str'>: stockRating
+Traceback (most recent call last):
+  File "/home/jazzdung/projects/airbyte-connectors/source-tcbs-general-rating/main.py", line 13, in <module>
+    launch(source, sys.argv[1:])
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/entrypoint.py", line 156, in launch
+    for message in source_entrypoint.run(parsed_args):
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/entrypoint.py", line 98, in run
+    yield from map(AirbyteEntrypoint.airbyte_message_to_string, self.read(source_spec, config, config_catalog, state))
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/entrypoint.py", line 132, in read
+    yield from self.source.read(self.logger, config, catalog, state)
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py", line 139, in read
+    raise e
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py", line 120, in read
+    yield from self._read_stream(
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py", line 194, in _read_stream
+    for record in record_iterator:
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py", line 325, in _read_full_refresh
+    message = self._get_message(record_data_or_message, stream_instance)
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py", line 359, in _get_message
+    return stream_data_to_airbyte_message(stream.name, record_data_or_message, stream.transformer, stream.get_json_schema())
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/utils/record_helper.py", line 38, in stream_data_to_airbyte_message
+    raise ValueError(f"Unexpected type for data_or_message: {type(data_or_message)}: {data_or_message}")
+ValueError: Unexpected type for data_or_message: <class 'str'>: stockRating"
+    }
+}
+{
+    "type": "TRACE",
+    "trace": {
+        "type": "ERROR",
+        "emitted_at": 1686222259394.35,
+        "error": {
+            "message": "Something went wrong in the connector. See the logs for more details.",
+            "internal_message": "Unexpected type for data_or_message: <class 'str'>: stockRating",
+            "stack_trace": "Traceback (most recent call last):
+  File "/home/jazzdung/projects/airbyte-connectors/source-tcbs-general-rating/main.py", line 13, in <module>
+    launch(source, sys.argv[1:])
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/entrypoint.py", line 156, in launch
+    for message in source_entrypoint.run(parsed_args):
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/entrypoint.py", line 98, in run
+    yield from map(AirbyteEntrypoint.airbyte_message_to_string, self.read(source_spec, config, config_catalog, state))
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/entrypoint.py", line 132, in read
+    yield from self.source.read(self.logger, config, catalog, state)
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py", line 139, in read
+    raise e
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py", line 120, in read
+    yield from self._read_stream(
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py", line 194, in _read_stream
+    for record in record_iterator:
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py", line 325, in _read_full_refresh
+    message = self._get_message(record_data_or_message, stream_instance)
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py", line 359, in _get_message
+    return stream_data_to_airbyte_message(stream.name, record_data_or_message, stream.transformer, stream.get_json_schema())
+  File "/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/utils/record_helper.py", line 38, in stream_data_to_airbyte_message
+    raise ValueError(f"Unexpected type for data_or_message: {type(data_or_message)}: {data_or_message}")
+ValueError: Unexpected type for data_or_message: <class 'str'>: stockRating
+",
+            "failure_type": "system_error"
+        }
+    }
+}

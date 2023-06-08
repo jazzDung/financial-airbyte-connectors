@@ -1,0 +1,60 @@
+{
+    "streams": [
+        {
+            "stream": {
+                "name": "general_rating",
+                "description": "Orrganization general rating report",
+                "json_schema": {
+                    "$schema": "http://json-schema.org/draft-04/schema#",
+                    "stockRating": {
+                        "type": "number"
+                    },
+                    "valuation": {
+                        "type": "number"
+                    },
+                    "financialHealth": {
+                        "type": "number"
+                    },
+                    "businessModel": {
+                        "type": "number"
+                    },
+                    "businessOperation": {
+                        "type": "number"
+                    },
+                    "rsRating": {
+                        "type": "number"
+                    },
+                    "taScore": {
+                        "type": "number"
+                    },
+                    "ticker": {
+                        "type": "string"
+                    },
+                    "highestPrice": {
+                        "type": "number"
+                    },
+                    "lowestPrice": {
+                        "type": "number"
+                    },
+                    "priceChange3m": {
+                        "type": "number"
+                    },
+                    "priceChange1y": {
+                        "type": "number"
+                    },
+                    "beta": {
+                        "type": "number"
+                    },
+                    "alpha": {
+                        "type": "number"
+                    }
+                },
+                "supported_sync_modes": [
+                    "full_refresh"
+                ]
+            },
+            "sync_mode": "full_refresh",
+            "destination_sync_mode": "append"
+        }
+    ]
+}
