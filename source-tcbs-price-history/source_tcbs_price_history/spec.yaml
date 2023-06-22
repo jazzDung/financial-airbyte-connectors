@@ -15,15 +15,15 @@ connectionSpecification:
       description: If enable, only sync 10 stock symbol
       default: false    
     start_date:
-      type: number
-      description: If not choose sync before today, sync data since specified days
-      examples: [1,2,5,100]
-      default: 0  
+      type: string
+      description: Ingest stock price history from start_date to end_date, required only when sync_all_history not enabled, not affected by stream_state.
+      pattern: ^[0-9]{4}-^[0-9]{2}-^[0-9]{2}$
+      examples: YYYY-MM-DD
     end_date:
-      type: number
-      description: If not choose sync before today, sync data since specified days
-      examples: [1,2,5,100]
-      default: 0  
+      type: string
+      description: Ingest stock price history from start_date to end_date, required only when sync_all_history not enabled, not affected by stream_state.
+      pattern: ^[0-9]{4}-^[0-9]{2}-^[0-9]{2}$
+      examples: YYYY-MM-DD
     symbol_url:
       type: string
       format: url

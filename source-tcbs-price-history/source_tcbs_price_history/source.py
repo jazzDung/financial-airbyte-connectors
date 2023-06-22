@@ -27,7 +27,6 @@ class Symbol(HttpStream, IncrementalMixin):
 
         self.fast_mode = config['fast_mode']
         self.url = config["symbol_url"]
-        # self.start_date = start_date
         self._cursor_value = None
 
     @property
@@ -78,7 +77,7 @@ class SymbolSubStream(HttpSubStream, Symbol, ABC):
         
         self.sync_all_history = config['sync_all_history']
         self.days_before = config['days_before']
-        # self.start_date = self.parent.start_date
+        self.start_date = self.parent.start_date
         self._cursor_value = datetime.strptime('2000-01-01', '%Y-%m-%d')
 
         # Specify some of the timestamp here
@@ -131,6 +130,8 @@ class PriceHistory(SymbolSubStream):
 # Source
 class SourceTcbsPriceHistory(AbstractSource):
     def check_connection(self, logger, config) -> Tuple[bool, any]:
+
+        if 
         return True, None
 
     def streams(self, config: Mapping[str, Any]) -> List[Stream]:
