@@ -4,17 +4,26 @@ connectionSpecification:
   title: Tcbs Price History Spec
   type: object
   required:
-    - days_before
     - symbol_url
   properties:
-    sync_all: 
+    sync_all_history: 
       type: boolean
-      description: Sync all data not already in database
+      description: Sync the whole history of stock price that not already in database
       default: false
-    days_before:
+    fast_mode:
+      type: boolean
+      description: If enable, only sync 10 stock symbol
+      default: false    
+    start_date:
       type: number
       description: If not choose sync before today, sync data since specified days
       examples: [1,2,5,100]
+      default: 0  
+    end_date:
+      type: number
+      description: If not choose sync before today, sync data since specified days
+      examples: [1,2,5,100]
+      default: 0  
     symbol_url:
       type: string
       format: url

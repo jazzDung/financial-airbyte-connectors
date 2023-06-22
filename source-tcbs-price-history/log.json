@@ -1,0 +1,76 @@
+{
+    "type": "LOG",
+    "log": {
+        "level": "INFO",
+        "message": "Starting syncing SourceTcbsPriceHistory"
+    }
+}
+2000-01-01 00: 00: 00
+{
+    "type": "LOG",
+    "log": {
+        "level": "FATAL",
+        "message": "unconverted data remains: T00:00:00.000Z
+Traceback (most recent call last):
+  File \"/home/jazzdung/projects/airbyte-connectors/source-tcbs-price-history/main.py\", line 13, in <module>
+    launch(source, sys.argv[1:])
+  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/entrypoint.py\", line 156, in launch
+    for message in source_entrypoint.run(parsed_args):
+  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/entrypoint.py\", line 98, in run
+    yield from map(AirbyteEntrypoint.airbyte_message_to_string, self.read(source_spec, config, config_catalog, state))
+  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/entrypoint.py\", line 132, in read
+    yield from self.source.read(self.logger, config, catalog, state)
+  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py\", line 112, in read
+    stream_is_available, error = stream_instance.check_availability(logger, self)
+  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/streams/core.py\", line 188, in check_availability
+    return self.availability_strategy.check_availability(self, logger, source)
+  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/streams/http/availability_strategy.py\", line 45, in check_availability
+    get_first_record_for_slice(stream, stream_slice)
+  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/streams/utils/stream_helper.py\", line 38, in get_first_record_for_slice
+    return next(records_for_slice)
+  File \"/home/jazzdung/projects/airbyte-connectors/source-tcbs-price-history/source_tcbs_price_history/source.py\", line 132, in read_records
+    latest_record_date = datetime.strptime(record[self.cursor_field], '%Y-%m-%d')
+  File \"/usr/lib/python3.10/_strptime.py\", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+  File \"/usr/lib/python3.10/_strptime.py\", line 352, in _strptime
+    raise ValueError(\"unconverted data remains: %s\" %
+ValueError: unconverted data remains: T00:00:00.000Z"
+    }
+}
+{
+    "type": "TRACE",
+    "trace": {
+        "type": "ERROR",
+        "emitted_at": 1687420279453.824,
+        "error": {
+            "message": "Something went wrong in the connector. See the logs for more details.",
+            "internal_message": "unconverted data remains: T00:00:00.000Z",
+            "stack_trace": "Traceback (most recent call last):
+  File \"/home/jazzdung/projects/airbyte-connectors/source-tcbs-price-history/main.py\", line 13, in <module>
+    launch(source, sys.argv[1:])
+  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/entrypoint.py\", line 156, in launch
+    for message in source_entrypoint.run(parsed_args):
+  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/entrypoint.py\", line 98, in run
+    yield from map(AirbyteEntrypoint.airbyte_message_to_string, self.read(source_spec, config, config_catalog, state))
+  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/entrypoint.py\", line 132, in read
+    yield from self.source.read(self.logger, config, catalog, state)
+  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/abstract_source.py\", line 112, in read
+    stream_is_available, error = stream_instance.check_availability(logger, self)
+  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/streams/core.py\", line 188, in check_availability
+    return self.availability_strategy.check_availability(self, logger, source)
+  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/streams/http/availability_strategy.py\", line 45, in check_availability
+    get_first_record_for_slice(stream, stream_slice)
+  File \"/home/jazzdung/.local/lib/python3.10/site-packages/airbyte_cdk/sources/streams/utils/stream_helper.py\", line 38, in get_first_record_for_slice
+    return next(records_for_slice)
+  File \"/home/jazzdung/projects/airbyte-connectors/source-tcbs-price-history/source_tcbs_price_history/source.py\", line 132, in read_records
+    latest_record_date = datetime.strptime(record[self.cursor_field], '%Y-%m-%d')
+  File \"/usr/lib/python3.10/_strptime.py\", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+  File \"/usr/lib/python3.10/_strptime.py\", line 352, in _strptime
+    raise ValueError(\"unconverted data remains: %s\" %
+ValueError: unconverted data remains: T00:00:00.000Z
+",
+            "failure_type": "system_error"
+        }
+    }
+}
