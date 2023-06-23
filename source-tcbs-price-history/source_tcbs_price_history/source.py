@@ -97,12 +97,13 @@ class PriceHistory(SymbolSubStream):
     def stream_slices(self, **kwargs) -> Iterable[Optional[Mapping[str, any]]]:
         for stream_slices in self.parent.stream_slices(sync_mode=SyncMode.full_refresh):
             for record in self.parent.read_records(sync_mode=SyncMode.full_refresh, stream_slice=stream_slices):
-                yield {"ticker": record}
+                yield {"ticker": record, "single_cursor": self.sursor_start}
  
     def parse_response(self, response: requests.Response, **kwargs) -> Iterable[Mapping]:
         response = response.json()
         data = response['data']
         ticker = response['ticker']
+        
         for element in data:
             element['ticker'] = ticker
             yield element
