@@ -25,24 +25,23 @@ class Symbol(HttpStream, IncrementalMixin):
     def __init__(self, config: Mapping[str, Any], cursor_start: datetime, **kwargs):
         super().__init__()
 
-        self.fast_mode = config['fast_mode']
-        self.url = config["symbol_url"]
+        self.fast_mode = config['Fast mode']
+        self.url = config["Symbol URL"]
         self._cursor_value = {}
-        self.cursor_start = cursor_start
 
         """
         Fill the _cursor_value with ticker symbol from url
         Format will be like this : { "TCB":946659600, "ABC":946659600}
         """
         
-        response = requests.get(config["symbol_url"]).text.split(",")
+        response = requests.get(config["Symbol URL"]).text.split(",")
 
         if self.fast_mode:
             for symbol in response[:5]:
-                self._cursor_value[symbol] = self.cursor_start
+                self._cursor_value[symbol] = cursor_start
         else:
             for symbol in response:
-                self._cursor_value[symbol] = self.cursor_start    
+                self._cursor_value[symbol] = cursor_start    
 
 
     @property
@@ -72,12 +71,8 @@ class Symbol(HttpStream, IncrementalMixin):
         stream_slice: Mapping[str, Any] = None,
         next_page_token: Mapping[str, Any] = None,
     ) -> Iterable[Mapping]:
-        
         response = response.text.split(",")
-        if self.fast_mode:
-            return response[:5]
-        else:
-            return response
+        return response[:5] if self.fast_mode else response
 
 
 class SymbolSubStream(HttpSubStream, Symbol, ABC):
@@ -87,10 +82,6 @@ class SymbolSubStream(HttpSubStream, Symbol, ABC):
      
     def __init__(self, config: Mapping[str, Any], parent: Symbol, cursor_start: datetime, **kwargs):
         super().__init__(config=config, parent=parent, cursor_start=cursor_start, **kwargs)
-        
-        self.sync_all_history = config['sync_all_history']
-        # self.start_date = int(time.mktime(datetime.strptime(config['start_date'], '%Y-%m-%d').timetuple()))
-        # self.end_date = int(time.mktime(datetime.strptime(config['end_date'], '%Y-%m-%d').timetuple()))
 
     def parse_response(self, response: requests.Response, **kwargs) -> Iterable[Mapping]:
         yield response.json()
@@ -99,14 +90,7 @@ class SymbolSubStream(HttpSubStream, Symbol, ABC):
 class PriceHistory(SymbolSubStream):
  
     def path(self, *, stream_state: Mapping[str, Any] = None, stream_slice: Mapping[str, Any] = None, next_page_token: Mapping[str, Any] = None) -> str:
-
-
-        if self.sync_all_history:
-            # Sync data from day 0 (Mean, all of them)
-            return f'https://apipubaws.tcbs.com.vn/stock-insight/v1/stock/bars-long-term?ticker={stream_slice}&type=stock&resolution=D&from={int(time.mktime(self._cursor_value[stream_slice].timetuple()))}&to={int(time.mktime(datetime.today().date().timetuple()))}'
-        # else:
-        #     # Sync only the data of yesterday
-        #     return f'https://apipubaws.tcbs.com.vn/stock-insight/v1/stock/bars-long-term?ticker={stream_slice}&type=stock&resolution=D&from={self.start_date}&to={self.end_date}'
+        return f'https://apipubaws.tcbs.com.vn/stock-insight/v1/stock/bars-long-term?ticker={stream_slice}&type=stock&resolution=D&from={int(time.mktime(self._cursor_value[stream_slice].timetuple()))}&to={int(time.mktime(datetime.today().date().timetuple()))}'
  
     def stream_slices(self, **kwargs) -> Iterable[Optional[Mapping[str, any]]]:
         for stream_slices in self.parent.stream_slices(sync_mode=SyncMode.full_refresh):
