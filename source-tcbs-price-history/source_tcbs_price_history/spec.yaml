@@ -18,5 +18,6 @@ connectionSpecification:
     Symbol URL:
       type: string
       format: url
-      description: Symbol file url
+      description: Symbol file url, the file content should look like this
       default: "https://raw.githubusercontent.com/jazzDung/financial-airbyte-connectors/main/symbol.txt"
+      example: "VVS,XDC,HSV,CST,BVL,SGI,TOS,VTZ,SSH,BCA,GMH,BIG"
