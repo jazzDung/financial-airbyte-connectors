@@ -2,6 +2,9 @@
     "type": "object",
     "description": "Stock intraday transaction records",
     "properties": {
+        "ticker": {
+            "type": "string"
+        },    
         "price": {
             "type": "number"
         },

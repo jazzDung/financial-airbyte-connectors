@@ -4,7 +4,7 @@
 import requests, time
 from abc import ABC
 from typing import Any, Iterable, List, Mapping, Optional, Tuple
-from datetime import datetime, timedelta
+from datetime import datetime, date
 from airbyte_cdk.models import SyncMode
 from airbyte_cdk.sources import AbstractSource
 from airbyte_cdk.sources.streams import Stream, IncrementalMixin
@@ -18,7 +18,36 @@ class Symbol(HttpStream, IncrementalMixin):
     def str_to_date(self, string):  
         "'2000-01-01' -> datetime.date(2000, 1, 1)"
         return datetime.strptime(string, '%Y-%m-%d').date()
+
+    def reset_cursor_value(self):
+
+        """
+        Fill the _cursor_value with ticker symbol, their corresponding date and total records 
+        Data type: 
+        {
+            'TCB': 
+            {
+                'date': datetime.date(2000, 1, 1), 
+                'records: 0
+            }
+        }
+        """
+        
+        response = requests.get(self.url).text.split(",")
+        response = response[:5] if self.fast_mode else response
+        _cursor_value =  dict.fromkeys(response, -1)
+        _cursor_value["date"] = date.today()
+        return _cursor_value
     
+    def reset_cursor_date(self):
+        return {"date": date.today()}
+    
+    def get_page_list(self, symbol):
+        url = f'https://apipubaws.tcbs.com.vn/stock-insight/v1/intraday/{symbol}/his/paging?page=0&size=1'
+        page_amount = requests.get(url).json()["total"]
+        page_num = page_amount//5
+        return [i for i in range (0, page_num)]        
+        
     @property  
     def use_cache(self) -> bool:  
         "Cache symbol list to disk to prevent calling the URL everytime we get price history"
@@ -29,33 +58,24 @@ class Symbol(HttpStream, IncrementalMixin):
 
         self.fast_mode = config["Fast mode"]
         self.url = config["Symbol URL"]
-        self.day_offset = config["Day offset"]
-
-        """
-        Fill the _cursor_value with ticker symbol from url
-        Data type: {"TCB": datetime.date(2000, 1, 1), "ABC": datetime.date(2000, 1, 1)}
-        Print format: {"TCB":"2023-06-23", "ABC":"2023-06-23"}
-        """
-
-        response = requests.get(config["Symbol URL"]).text.split(",")
-        response = response[:5] if self.fast_mode else response
-        self._cursor_value = dict.fromkeys(response, self.str_to_date("2000-01-01"))
+        self._cursor_value = self.reset_cursor_value()
+        self._cursor_date = self.reset_cursor_date()
 
     @property
     def state(self) -> Mapping[str, Any]:
         "Return the _cursor_value to show on UI at Connection > Settings  > Advanced"
-        return self._cursor_value
+        # return self._cursor_value
+        return self._cursor_date | self._cursor_value
     
     @state.setter
     def state(self, value: Mapping[str, Any]):
         "Update _cursor_value with latest timestamp in ingested record"
         for key in self._cursor_value:    
-            self._cursor_value[key] = self.str_to_date(value[key][:10])
+            self._cursor_value[key] = value['id']
     
     def next_page_token(self, response: requests.Response):
         "The API does not offer pagination, so we return None to indicate there are no more pages in the response"
         return None
-    
 
     def path(
         self,
@@ -89,55 +109,57 @@ class SymbolSubStream(HttpSubStream, Symbol, ABC):
     def __init__(self, config: Mapping[str, Any], parent: Symbol, **kwargs):
         super().__init__(config=config, parent=parent, **kwargs)
 
-class IncrementalTcbsIntradayStream(HttpSubStream):
-    """
-    TODO fill in details of this class to implement functionality related to incremental syncs for your connector.
-         if you do not need to implement incremental sync for any streams, remove this class.
-    """
-
-    # TODO: Fill in to checkpoint stream reads after N records. This prevents re-reading of data if the stream fails for any reason.
+class StockIntraday(SymbolSubStream):
     state_checkpoint_interval = None
 
-    @property
-    def cursor_field(self) -> str:
-        """
-        TODO
-        Override to return the cursor field used by this stream e.g: an API entity might always use created_at as the cursor field. This is
-        usually id or date based. This field's presence tells the framework this in an incremental stream. Required for incremental.
+    def path(self, *, stream_state: Mapping[str, Any] = None, stream_slice: Mapping[str, Any] = None, next_page_token: Mapping[str, Any] = None) -> str:
+        "URL example: 'https://apipubaws.tcbs.com.vn/stock-insight/v1/stock/bars-long-term?ticker=TCB&type=stock&resolution=D&from=1687798800&to=1687798800'"
+        if datetime.now().weekday() > 4: #today is weekend
+            return f'https://apipubaws.tcbs.com.vn/stock-insight/v1/intraday/{stream_slice["symbol"]}/his/paging?page={stream_slice["page"]}&size=5&headIndex=-1'
+        else:
+            return f'https://apipubaws.tcbs.com.vn/stock-insight/v1/intraday/{stream_slice["symbol"]}/his/paging?page={stream_slice["page"]}&size=5'
 
-        :return str: The name of the cursor field.
-        """
-        return []
+    def stream_slices(self, **kwargs) -> Iterable[Optional[Mapping[str, any]]]:
+        "Get the symbol list" 
+        for record in self.parent.read_records(sync_mode=SyncMode.full_refresh):
+            for page_num in self.get_page_list(record):
+                yield {"symbol": record, "page": page_num}
+    
+    def parse_response(self, response: requests.Response, **kwargs) -> Iterable[Mapping]:
+        response = response.json()
+        base_index = response["total"] - response["page"] * response["size"]
+        ticker = response["ticker"]
+        total = response["total"]
+        response = response["data"]
+        for record in response:
+            record["ticker"] = ticker
+            record["total"] = total
+            record["id"] = base_index-response.index(record) - 1
+            yield record
 
-    def get_updated_state(self, current_stream_state: MutableMapping[str, Any], latest_record: Mapping[str, Any]) -> Mapping[str, Any]:
-        """
-        Override to determine the latest state after reading the latest record. This typically compared the cursor_field from the latest record and
-        the current state and picks the 'most' recent cursor. This is how a stream's state is determined. Required for incremental.
-        """
-        return {}
-
-
+    def read_records(self, *args, **kwargs) -> Iterable[Mapping[str, Any]]:
+        "Update symbol's cursor value with highest timestamp in corresponding symbol's record"
+        
+        for record in super().read_records(*args, **kwargs):            
+            # if self._cursor_value[record["ticker"]] < record["id"]:
+            self._cursor_value[record["ticker"]] = record["id"]
+            yield record
+        
+        # print(f'{record["ticker"]}: {record["id"]}')
+        # print(f'Cursor: {self._cursor_value[record["ticker"]]["records"]}')
+        # print(f'{self._cursor_value}')
+ 
 # Source
 class SourceTcbsIntraday(AbstractSource):
     def check_connection(self, logger, config) -> Tuple[bool, any]:
-        """
-        TODO: Implement a connection check to validate that the user-provided config can be used to connect to the underlying API
-
-        See https://github.com/airbytehq/airbyte/blob/master/airbyte-integrations/connectors/source-stripe/source_stripe/source.py#L232
-        for an example.
-
-        :param config:  the user-input config object conforming to the connector's spec.yaml
-        :param logger:  logger object
-        :return Tuple[bool, any]: (True, None) if the input config can be used to connect to the API successfully, (False, error) otherwise.
-        """
         return True, None
 
     def streams(self, config: Mapping[str, Any]) -> List[Stream]:
-        """
-        TODO: Replace the streams below with your own streams.
-
-        :param config: A Mapping of the user input configuration as defined in the connector spec.
-        """
-        # TODO remove the authenticator if not required.
-        auth = TokenAuthenticator(token="api_key")  # Oauth2Authenticator is also available if you need oauth support
-        return [Customers(authenticator=auth), Employees(authenticator=auth)]
+        auth = NoAuth()
+        return [
+            StockIntraday(
+                parent=Symbol(config=config, authenticator=auth), 
+                config=config, 
+                authenticator=auth
+            ),
+        ]

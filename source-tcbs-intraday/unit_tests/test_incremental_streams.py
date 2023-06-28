@@ -5,26 +5,26 @@
 
 from airbyte_cdk.models import SyncMode
 from pytest import fixture
-from source_tcbs_intraday.source import IncrementalTcbsIntradayStream
+from source_tcbs_intraday.source import StockIntraday
 
 
 @fixture
 def patch_incremental_base_class(mocker):
     # Mock abstract methods to enable instantiating abstract class
-    mocker.patch.object(IncrementalTcbsIntradayStream, "path", "v0/example_endpoint")
-    mocker.patch.object(IncrementalTcbsIntradayStream, "primary_key", "test_primary_key")
-    mocker.patch.object(IncrementalTcbsIntradayStream, "__abstractmethods__", set())
+    mocker.patch.object(StockIntraday, "path", "v0/example_endpoint")
+    mocker.patch.object(StockIntraday, "primary_key", "test_primary_key")
+    mocker.patch.object(StockIntraday, "__abstractmethods__", set())
 
 
 def test_cursor_field(patch_incremental_base_class):
-    stream = IncrementalTcbsIntradayStream()
+    stream = StockIntraday()
     # TODO: replace this with your expected cursor field
     expected_cursor_field = []
     assert stream.cursor_field == expected_cursor_field
 
 
 def test_get_updated_state(patch_incremental_base_class):
-    stream = IncrementalTcbsIntradayStream()
+    stream = StockIntraday()
     # TODO: replace this with your input parameters
     inputs = {"current_stream_state": None, "latest_record": None}
     # TODO: replace this with your expected updated stream state
@@ -33,7 +33,7 @@ def test_get_updated_state(patch_incremental_base_class):
 
 
 def test_stream_slices(patch_incremental_base_class):
-    stream = IncrementalTcbsIntradayStream()
+    stream = StockIntraday()
     # TODO: replace this with your input parameters
     inputs = {"sync_mode": SyncMode.incremental, "cursor_field": [], "stream_state": {}}
     # TODO: replace this with your expected stream slices list
@@ -42,18 +42,18 @@ def test_stream_slices(patch_incremental_base_class):
 
 
 def test_supports_incremental(patch_incremental_base_class, mocker):
-    mocker.patch.object(IncrementalTcbsIntradayStream, "cursor_field", "dummy_field")
-    stream = IncrementalTcbsIntradayStream()
+    mocker.patch.object(StockIntraday, "cursor_field", "dummy_field")
+    stream = StockIntraday()
     assert stream.supports_incremental
 
 
 def test_source_defined_cursor(patch_incremental_base_class):
-    stream = IncrementalTcbsIntradayStream()
+    stream = StockIntraday()
     assert stream.source_defined_cursor
 
 
 def test_stream_checkpoint_interval(patch_incremental_base_class):
-    stream = IncrementalTcbsIntradayStream()
+    stream = StockIntraday()
     # TODO: replace this with your expected checkpoint interval
     expected_checkpoint_interval = None
     assert stream.state_checkpoint_interval == expected_checkpoint_interval
