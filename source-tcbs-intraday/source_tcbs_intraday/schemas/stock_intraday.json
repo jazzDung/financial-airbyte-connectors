@@ -1,0 +1,36 @@
+{
+    "type": "object",
+    "description": "Stock intraday transaction records",
+    "properties": {
+        "price": {
+            "type": "number"
+        },
+        "volume": {
+            "type": "integer"
+        },
+        "cp": {
+            "type": "number"
+        },
+        "rcp": {
+            "type": "number"
+        },
+        "a": {
+            "type": "string"
+        },
+        "ba": {
+            "type": "number"
+        },
+        "sa": {
+            "type": "number"
+        },
+        "hl": {
+            "type": "boolean"
+        },
+        "pcp": {
+            "type": "number"
+        },
+        "time": {
+            "type": "string"
+        }
+    }
+}
