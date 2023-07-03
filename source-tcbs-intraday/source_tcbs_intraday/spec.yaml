@@ -12,11 +12,15 @@ connectionSpecification:
       type: string
       format: url
       description: Symbol file url, the file content should look like this
+      examples: 
+        - VVS,XDC,HSV,CST,BVL,SGI,TOS,VTZ,SSH,BCA,GMH,BIG
       default: "https://raw.githubusercontent.com/jazzDung/financial-airbyte-connectors/main/symbol.txt"
-      example: "VVS,XDC,HSV,CST,BVL,SGI,TOS,VTZ,SSH,BCA,GMH,BIG"
-    # Page size:
-    #   type: int
-    #   description: If enable, only sync 10 stock symbol  
-    #   example: [10,50,100]
-    #   default: 10
+    Page size:
+      type: integer
+      description: Page size, max 100, larger page size sync faster (Maybe, somebody test this please!)
+      examples:
+        - 10
+        - 50
+        - 100
+      default: 10
       

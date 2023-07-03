@@ -6,10 +6,16 @@
                 "description": "Stock intraday transaction records",
                 "json_schema": {
                     "$schema": "http://json-schema.org/draft-04/schema#",
-                    "price": {
+                    "ticker": {
+                        "type": "string"
+                    },    
+                    "id": {
+                        "type": "integer"
+                    },
+                    "p": {
                         "type": "number"
                     },
-                    "volume": {
+                    "v": {
                         "type": "integer"
                     },
                     "cp": {
@@ -33,7 +39,7 @@
                     "pcp": {
                         "type": "number"
                     },
-                    "time": {
+                    "t": {
                         "type": "string"
                     }
                 },

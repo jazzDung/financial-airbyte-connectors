@@ -5,10 +5,13 @@
         "ticker": {
             "type": "string"
         },    
-        "price": {
+        "id": {
+            "type": "integer"
+        },
+        "p": {
             "type": "number"
         },
-        "volume": {
+        "v": {
             "type": "integer"
         },
         "cp": {
@@ -32,7 +35,7 @@
         "pcp": {
             "type": "number"
         },
-        "time": {
+        "t": {
             "type": "string"
         }
     }
