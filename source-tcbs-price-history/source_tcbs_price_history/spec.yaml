@@ -8,16 +8,15 @@ connectionSpecification:
   properties:
     Fast mode:
       type: boolean
-      description: If enable, only sync 10 stock symbol
+      description: If enable, only sync 5 stock symbols
       default: false    
     Day offset:
       type: integer
-      description: Ingest all data up until specific amount of days before today
+      description: Ingest all data up until specific amount of days before today (Dev only)
       default: 0    
-      example: [0,5,10,100]
+      examples: [0,5,10,100]
     Symbol URL:
       type: string
-      format: url
-      description: Symbol file url, the file content should look like this
+      format: uri
+      description: Symbol file url, the file content should look like this - VVS,XDC,HSV,CST,BVL,SGI,TOS,VTZ,SSH,BCA,GMH,BIG
       default: "https://raw.githubusercontent.com/jazzDung/financial-airbyte-connectors/main/symbol.txt"
-      example: "VVS,XDC,HSV,CST,BVL,SGI,TOS,VTZ,SSH,BCA,GMH,BIG"

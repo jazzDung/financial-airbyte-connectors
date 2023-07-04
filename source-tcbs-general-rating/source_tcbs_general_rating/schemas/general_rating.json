@@ -43,6 +43,9 @@
         },
         "alpha": {
             "type": "number"
+        },
+        "date": {
+            "type": "string"
         }
     }
 }

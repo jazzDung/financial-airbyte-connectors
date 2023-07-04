@@ -10,7 +10,7 @@ connectionSpecification:
       default: false
     Symbol URL:
       type: string
-      format: url
+      format: uri
       description: Symbol file url, the file content should look like this
       examples: 
         - VVS,XDC,HSV,CST,BVL,SGI,TOS,VTZ,SSH,BCA,GMH,BIG

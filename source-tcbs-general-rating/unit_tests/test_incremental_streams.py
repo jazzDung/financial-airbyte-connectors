@@ -1,8 +1,3 @@
-#
-# Copyright (c) 2023 Airbyte, Inc., all rights reserved.
-#
-
-
 from airbyte_cdk.models import SyncMode
 from pytest import fixture
 from source_tcbs_general_rating.source import IncrementalTcbsGeneralRatingStream

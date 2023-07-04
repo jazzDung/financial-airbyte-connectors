@@ -104,6 +104,7 @@ class PriceHistory(SymbolSubStream):
             yield record
  
     def parse_response(self, response: requests.Response, **kwargs) -> Iterable[Mapping]:
+        "Parse json records from URL"
         response = response.json()
         for record in response["data"]:
             record["ticker"] = response["ticker"]
