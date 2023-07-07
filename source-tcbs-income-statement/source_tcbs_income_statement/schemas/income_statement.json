@@ -5,6 +5,12 @@
         "ticker": {
             "type": "string"
         },
+        "quarter": {
+            "type": "integer"
+        },
+        "year": {
+            "type": "integer"
+        },
         "revenue": {
             "type": "integer"
         },

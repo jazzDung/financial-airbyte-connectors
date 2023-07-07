@@ -1,0 +1,156 @@
+/Users/admin/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py: 34: NotOpenSSLWarning: urllib3 v2.0 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https: //github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+{
+    "type": "LOG",
+    "log": {
+        "level": "INFO",
+        "message": "Starting syncing SourceTcbsIncomeStatement"
+    }
+}
+{
+    "type": "LOG",
+    "log": {
+        "level": "INFO",
+        "message": "Marking stream income_statement as STARTED"
+    }
+}
+{
+    "type": "TRACE",
+    "trace": {
+        "type": "STREAM_STATUS",
+        "emitted_at": 1688722111930.6619,
+        "stream_status": {
+            "stream_descriptor": {
+                "name": "income_statement",
+                "namespace": null
+            },
+            "status": "STARTED"
+        }
+    }
+}
+{
+    "type": "LOG",
+    "log": {
+        "level": "INFO",
+        "message": "Syncing stream: income_statement "
+    }
+}
+{
+    "type": "LOG",
+    "log": {
+        "level": "ERROR",
+        "message": "Encountered an exception while reading stream income_statement
+Traceback (most recent call last):
+  File "/Users/admin/Library/Python/3.9/lib/python/site-packages/airbyte_cdk/sources/abstract_source.py", line 122, in read
+    yield from self._read_stream(
+  File "/Users/admin/Library/Python/3.9/lib/python/site-packages/airbyte_cdk/sources/abstract_source.py", line 197, in _read_stream
+    for record in record_iterator:
+  File "/Users/admin/Library/Python/3.9/lib/python/site-packages/airbyte_cdk/sources/abstract_source.py", line 329, in _read_full_refresh
+    message = self._get_message(record_data_or_message, stream_instance)
+  File "/Users/admin/Library/Python/3.9/lib/python/site-packages/airbyte_cdk/sources/abstract_source.py", line 374, in _get_message
+    return stream_data_to_airbyte_message(stream.name, record_data_or_message, stream.transformer, stream.get_json_schema())
+  File "/Users/admin/Library/Python/3.9/lib/python/site-packages/airbyte_cdk/sources/utils/record_helper.py", line 38, in stream_data_to_airbyte_message
+    raise ValueError(f"Unexpected type for data_or_message: {type(data_or_message)}: {data_or_message}")
+ValueError: Unexpected type for data_or_message: <class 'bytes'>: b'[{"ticker":"VVS","quarter":1,"year":2023,"revenue":480,"yearRevenueGrowth":null,"quarterRevenueGrowth":-0.499,"costOfGoodSold":-'"
+    }
+}
+{
+    "type": "LOG",
+    "log": {
+        "level": "INFO",
+        "message": "Marking stream income_statement as STOPPED"
+    }
+}
+{
+    "type": "TRACE",
+    "trace": {
+        "type": "STREAM_STATUS",
+        "emitted_at": 1688722111942.904,
+        "stream_status": {
+            "stream_descriptor": {
+                "name": "income_statement",
+                "namespace": null
+            },
+            "status": "INCOMPLETE"
+        }
+    }
+}
+{
+    "type": "LOG",
+    "log": {
+        "level": "INFO",
+        "message": "Finished syncing income_statement"
+    }
+}
+{
+    "type": "LOG",
+    "log": {
+        "level": "INFO",
+        "message": "SourceTcbsIncomeStatement runtimes:
+Syncing stream income_statement 0:00:00.863965"
+    }
+}
+{
+    "type": "LOG",
+    "log": {
+        "level": "FATAL",
+        "message": "Unexpected type for data_or_message: <class 'bytes'>: b'[{"ticker":"VVS","quarter":1,"year":2023,"revenue":480,"yearRevenueGrowth":null,"quarterRevenueGrowth":-0.499,"costOfGoodSold":-'
+Traceback (most recent call last):
+  File "/Users/admin/Documents/financial-airbyte-connectors/source-tcbs-income-statement/main.py", line 13, in <module>
+    launch(source, sys.argv[1:])
+  File "/Users/admin/Library/Python/3.9/lib/python/site-packages/airbyte_cdk/entrypoint.py", line 185, in launch
+    for message in source_entrypoint.run(parsed_args):
+  File "/Users/admin/Library/Python/3.9/lib/python/site-packages/airbyte_cdk/entrypoint.py", line 115, in run
+    yield from map(AirbyteEntrypoint.airbyte_message_to_string, self.read(source_spec, config, config_catalog, state))
+  File "/Users/admin/Library/Python/3.9/lib/python/site-packages/airbyte_cdk/entrypoint.py", line 155, in read
+    yield from self.source.read(self.logger, config, catalog, state)
+  File "/Users/admin/Library/Python/3.9/lib/python/site-packages/airbyte_cdk/sources/abstract_source.py", line 142, in read
+    raise e
+  File "/Users/admin/Library/Python/3.9/lib/python/site-packages/airbyte_cdk/sources/abstract_source.py", line 122, in read
+    yield from self._read_stream(
+  File "/Users/admin/Library/Python/3.9/lib/python/site-packages/airbyte_cdk/sources/abstract_source.py", line 197, in _read_stream
+    for record in record_iterator:
+  File "/Users/admin/Library/Python/3.9/lib/python/site-packages/airbyte_cdk/sources/abstract_source.py", line 329, in _read_full_refresh
+    message = self._get_message(record_data_or_message, stream_instance)
+  File "/Users/admin/Library/Python/3.9/lib/python/site-packages/airbyte_cdk/sources/abstract_source.py", line 374, in _get_message
+    return stream_data_to_airbyte_message(stream.name, record_data_or_message, stream.transformer, stream.get_json_schema())
+  File "/Users/admin/Library/Python/3.9/lib/python/site-packages/airbyte_cdk/sources/utils/record_helper.py", line 38, in stream_data_to_airbyte_message
+    raise ValueError(f"Unexpected type for data_or_message: {type(data_or_message)}: {data_or_message}")
+ValueError: Unexpected type for data_or_message: <class 'bytes'>: b'[{"ticker":"VVS","quarter":1,"year":2023,"revenue":480,"yearRevenueGrowth":null,"quarterRevenueGrowth":-0.499,"costOfGoodSold":-'"
+    }
+}
+{
+    "type": "TRACE",
+    "trace": {
+        "type": "ERROR",
+        "emitted_at": 1688722111947.15,
+        "error": {
+            "message": "Something went wrong in the connector. See the logs for more details.",
+            "internal_message": "Unexpected type for data_or_message: <class 'bytes'>: b'[{"ticker":"VVS","quarter":1,"year":2023,"revenue":480,"yearRevenueGrowth":null,"quarterRevenueGrowth":-0.499,"costOfGoodSold":-'",
+            "stack_trace": "Traceback (most recent call last):
+  File "/Users/admin/Documents/financial-airbyte-connectors/source-tcbs-income-statement/main.py", line 13, in <module>
+    launch(source, sys.argv[1:])
+  File "/Users/admin/Library/Python/3.9/lib/python/site-packages/airbyte_cdk/entrypoint.py", line 185, in launch
+    for message in source_entrypoint.run(parsed_args):
+  File "/Users/admin/Library/Python/3.9/lib/python/site-packages/airbyte_cdk/entrypoint.py", line 115, in run
+    yield from map(AirbyteEntrypoint.airbyte_message_to_string, self.read(source_spec, config, config_catalog, state))
+  File "/Users/admin/Library/Python/3.9/lib/python/site-packages/airbyte_cdk/entrypoint.py", line 155, in read
+    yield from self.source.read(self.logger, config, catalog, state)
+  File "/Users/admin/Library/Python/3.9/lib/python/site-packages/airbyte_cdk/sources/abstract_source.py", line 142, in read
+    raise e
+  File "/Users/admin/Library/Python/3.9/lib/python/site-packages/airbyte_cdk/sources/abstract_source.py", line 122, in read
+    yield from self._read_stream(
+  File "/Users/admin/Library/Python/3.9/lib/python/site-packages/airbyte_cdk/sources/abstract_source.py", line 197, in _read_stream
+    for record in record_iterator:
+  File "/Users/admin/Library/Python/3.9/lib/python/site-packages/airbyte_cdk/sources/abstract_source.py", line 329, in _read_full_refresh
+    message = self._get_message(record_data_or_message, stream_instance)
+  File "/Users/admin/Library/Python/3.9/lib/python/site-packages/airbyte_cdk/sources/abstract_source.py", line 374, in _get_message
+    return stream_data_to_airbyte_message(stream.name, record_data_or_message, stream.transformer, stream.get_json_schema())
+  File "/Users/admin/Library/Python/3.9/lib/python/site-packages/airbyte_cdk/sources/utils/record_helper.py", line 38, in stream_data_to_airbyte_message
+    raise ValueError(f"Unexpected type for data_or_message: {type(data_or_message)}: {data_or_message}")
+ValueError: Unexpected type for data_or_message: <class 'bytes'>: b'[{"ticker":"VVS","quarter":1,"year":2023,"revenue":480,"yearRevenueGrowth":null,"quarterRevenueGrowth":-0.499,"costOfGoodSold":-'
+",
+            "failure_type": "system_error"
+        }
+    }
+}

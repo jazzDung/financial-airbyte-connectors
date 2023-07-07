@@ -9,6 +9,12 @@
                     "ticker": {
                         "type": "string"
                     },
+                    "quarter": {
+                        "type": "integer"
+                    },
+                    "year": {
+                        "type": "integer"
+                    },
                     "shortAsset": {
                         "type": "string"
                     },
