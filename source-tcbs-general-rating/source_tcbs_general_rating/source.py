@@ -76,7 +76,6 @@ class GeneralRating(SymbolSubStream):
     def parse_response(self, response: requests.Response, stream_slice: Mapping[str, Any] = None, **kwargs) -> Iterable[Mapping]:
         "Parse json records from URL"
         response = response.json()
-        del response["stockRecommend"]
         yield response
 
 # Source
