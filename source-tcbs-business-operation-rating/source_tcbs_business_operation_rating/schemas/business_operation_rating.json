@@ -1,0 +1,66 @@
+{
+    "type": "object",
+    "description": "",
+    "properties": {
+        "industryEn": {
+            "type": "string"
+        },
+        "loanGrowth": {
+            "type": "integer"
+        },
+        "depositGrowth": {
+            "type": "integer"
+        },
+        "netInterestIncomeGrowth": {
+            "type": "integer"
+        },
+        "netInterestMargin": {
+            "type": "integer"
+        },
+        "costToIncome": {
+            "type": "integer"
+        },
+        "netIncomeTOI": {
+            "type": "integer"
+        },
+        "ticker": {
+            "type": "string"
+        },
+        "businessOperation": {
+            "type": "number"
+        },
+        "avgROE": {
+            "type": "integer"
+        },
+        "avgROA": {
+            "type": "integer"
+        },
+        "last5yearsNetProfitGrowth": {
+            "type": "integer"
+        },
+        "last5yearsRevenueGrowth": {
+            "type": "string"
+        },
+        "last5yearsOperatingProfitGrowth": {
+            "type": "string"
+        },
+        "last5yearsEBITDAGrowth": {
+            "type": "string"
+        },
+        "last5yearsFCFFGrowth": {
+            "type": "string"
+        },
+        "lastYearGrossProfitMargin": {
+            "type": "string"
+        },
+        "lastYearOperatingProfitMargin": {
+            "type": "string"
+        },
+        "lastYearNetProfitMargin": {
+            "type": "string"
+        },
+        "TOIGrowth": {
+            "type": "integer"
+        }
+    }
+}

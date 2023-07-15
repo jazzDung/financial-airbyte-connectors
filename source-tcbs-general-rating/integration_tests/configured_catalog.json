@@ -47,9 +47,6 @@
                     },
                     "alpha": {
                         "type": "number"
-                    },
-                    "date": {
-                        "type": "string"
                     }
                 },
                 "supported_sync_modes": [

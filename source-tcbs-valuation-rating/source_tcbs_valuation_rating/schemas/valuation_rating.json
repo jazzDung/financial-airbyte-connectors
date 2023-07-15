@@ -1,0 +1,30 @@
+{
+    "type": "object",
+    "description": "",
+    "properties": {
+        "industryEn": {
+            "type": "string"
+        },
+        "ticker": {
+            "type": "string"
+        },
+        "valuation": {
+            "type": "number"
+        },
+        "pe": {
+            "type": "integer"
+        },
+        "pb": {
+            "type": "integer"
+        },
+        "ps": {
+            "type": "string"
+        },
+        "evebitda": {
+            "type": "string"
+        },
+        "dividendRate": {
+            "type": "integer"
+        }
+    }
+}

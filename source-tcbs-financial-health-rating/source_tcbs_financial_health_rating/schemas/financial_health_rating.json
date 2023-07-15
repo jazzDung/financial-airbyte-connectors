@@ -1,0 +1,42 @@
+{
+    "type": "object",
+    "description": "Financial Health Rating",
+    "properties": {
+        "industryEn": {
+            "type": "string"
+        },
+        "loanDeposit": {
+            "type": "integer"
+        },
+        "badLoanGrossLoan": {
+            "type": "integer"
+        },
+        "badLoanAsset": {
+            "type": "integer"
+        },
+        "provisionBadLoan": {
+            "type": "integer"
+        },
+        "ticker": {
+            "type": "string"
+        },
+        "financialHealth": {
+            "type": "number"
+        },
+        "netDebtEquity": {
+            "type": "string"
+        },
+        "currentRatio": {
+            "type": "string"
+        },
+        "quickRatio": {
+            "type": "string"
+        },
+        "interestCoverage": {
+            "type": "string"
+        },
+        "netDebtEBITDA": {
+            "type": "string"
+        }
+    }
+}

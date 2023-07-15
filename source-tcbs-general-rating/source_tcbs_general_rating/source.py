@@ -4,18 +4,18 @@
 
 from abc import ABC
 from datetime import datetime
-from typing import Any, Iterable, List, Mapping, MutableMapping, Optional, Tuple
+from typing import Any, Iterable, List, Mapping, Optional, Tuple
 from airbyte_cdk.models import SyncMode
 
 import requests
 from airbyte_cdk.sources import AbstractSource
 from airbyte_cdk.sources.streams import Stream
 from airbyte_cdk.sources.streams.http import HttpStream, HttpSubStream
-from airbyte_cdk.sources.streams.http.auth import TokenAuthenticator, NoAuth
+from airbyte_cdk.sources.streams.http.auth import NoAuth
 
 class Symbol(HttpStream):
     url_base = None
-    primary_key = cursor_field = "tradingDate"
+    primary_key = None
     
     @property  
     def use_cache(self) -> bool:  
@@ -60,7 +60,6 @@ class Symbol(HttpStream):
 
 class SymbolSubStream(HttpSubStream, Symbol, ABC):
     raise_on_http_errors = False 
-
     def __init__(self, config: Mapping[str, Any], parent: Symbol, **kwargs):
         super().__init__(config=config, parent=parent, **kwargs)
 
@@ -78,7 +77,6 @@ class GeneralRating(SymbolSubStream):
         "Parse json records from URL"
         response = response.json()
         del response["stockRecommend"]
-        response["date"] = str(datetime.now().date())
         yield response
 
 # Source

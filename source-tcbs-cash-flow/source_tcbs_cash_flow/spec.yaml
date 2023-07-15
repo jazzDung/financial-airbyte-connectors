@@ -4,16 +4,14 @@ connectionSpecification:
   title: TCBS Cash Flow Spec
   type: object
   required:
-    - frequency
+    - Symbol URL
   properties:
-    fast_mode:
-      description: Enable to just ingest records from 10 organization
+    Fast mode:
       type: boolean
-      default: false
-    all_data:
-      description: If disabled, will only collect data for 5 years from now
-      type: boolean
-      default: false
-    frequency:
+      description: If enable, only sync 5 stock symbols
+      default: false    
+    Symbol URL:
       type: string
-      examples: ["Yearly", "Quarterly", "Both"]
+      format: uri
+      description: Symbol file url, the file content should look like this - VVS,XDC,HSV,CST,BVL,SGI,TOS,VTZ,SSH,BCA,GMH,BIG
+      default: "https://raw.githubusercontent.com/jazzDung/financial-airbyte-connectors/main/symbol.txt"

@@ -1,0 +1,17 @@
+documentationUrl: https://docsurl.com
+connectionSpecification:
+  $schema: http://json-schema.org/draft-07/schema#
+  title: Tcbs Valuation Rating Spec
+  type: object
+  required:
+    - Symbol URL
+  properties:
+    Fast mode:
+      type: boolean
+      description: If enable, only sync 5 stock symbols
+      default: false
+    Symbol URL:
+      type: string
+      format: uri
+      description: Symbol file url, the file content should look like this - VVS,XDC,HSV,CST,BVL,SGI,TOS,VTZ,SSH,BCA,GMH,BIG
+      default: "https://raw.githubusercontent.com/jazzDung/financial-airbyte-connectors/main/symbol.txt"

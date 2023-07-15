@@ -2,8 +2,12 @@
     "type": "object",
     "description": "Organization general rating report",
     "properties": {
+
         "stockRating": {
             "type": "number"
+        },
+        "ticker": {
+            "type": "string"
         },
         "valuation": {
             "type": "number"
@@ -23,9 +27,6 @@
         "taScore": {
             "type": "number"
         },
-        "ticker": {
-            "type": "string"
-        },
         "highestPrice": {
             "type": "number"
         },
@@ -43,9 +44,6 @@
         },
         "alpha": {
             "type": "number"
-        },
-        "date": {
-            "type": "string"
         }
     }
 }

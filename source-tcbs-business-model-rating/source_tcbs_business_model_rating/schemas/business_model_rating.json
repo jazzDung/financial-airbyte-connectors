@@ -1,0 +1,42 @@
+{
+    "type": "object",
+    "description": "Tcbs Business Model Rating",
+    "properties": {
+        "ticker": {
+            "type": "string"
+        },
+        "businessModel": {
+            "type": "number"
+        },
+        "businessEfficiency": {
+            "type": "integer"
+        },
+        "assetQuality": {
+            "type": "integer"
+        },
+        "cashFlowQuality": {
+            "type": "integer"
+        },
+        "bom": {
+            "type": "integer"
+        },
+        "businessAdministration": {
+            "type": "integer"
+        },
+        "productService": {
+            "type": "integer"
+        },
+        "businessAdvantage": {
+            "type": "integer"
+        },
+        "companyPosition": {
+            "type": "integer"
+        },
+        "industry": {
+            "type": "integer"
+        },
+        "operationRisk": {
+            "type": "integer"
+        }
+    }
+}
