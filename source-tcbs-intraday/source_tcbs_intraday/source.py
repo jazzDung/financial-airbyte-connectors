@@ -30,7 +30,6 @@ class Symbol(HttpStream, IncrementalMixin):
         """
         
         response = requests.get(self.url).text.split(",")
-        response = response[:5] if self.fast_mode else response
         _cursor_value =  dict.fromkeys(response, -1)
         _cursor_date = {"date": date.today()}
         return _cursor_date | _cursor_value
@@ -106,7 +105,7 @@ class StockIntraday(SymbolSubStream):
     state_checkpoint_interval = None
 
     def path(self, *, stream_state: Mapping[str, Any] = None, stream_slice: Mapping[str, Any] = None, next_page_token: Mapping[str, Any] = None) -> str:
-        "URL example: 'https://apipubaws.tcbs.com.vn/stock-insight/v1/stock/bars-long-term?ticker=TCB&type=stock&resolution=D&from=1687798800&to=1687798800'"
+        "URL example: 'https://apipubaws.tcbs.com.vn/stock-insight/v1/intraday/TCB/his/paging?page=0&size=50&headIndex=-1'"
         if datetime.now().weekday() > 4: #today is weekend
             return f'https://apipubaws.tcbs.com.vn/stock-insight/v1/intraday/{stream_slice["symbol"]}/his/paging?page={stream_slice["page"]}&size={self.page_size}&headIndex=-1'
         else:
